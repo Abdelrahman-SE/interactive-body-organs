@@ -25,8 +25,9 @@ const FeedbackScreen = () => {
       if (organ.namedErrors === 0) textScore += 1;
     });
 
-    const totalScore = dragScore + textScore;
-    const percentage = (totalScore / 12) * 100;
+    const totalRawScore = dragScore + textScore; // Out of 12
+    const scaledTotalScore = totalRawScore / 2; // Out of 6 (3 for phase 1, 3 for phase 2)
+    const percentage = (scaledTotalScore / 6) * 100;
 
     let stars = 0;
     let text = "";
@@ -50,7 +51,7 @@ const FeedbackScreen = () => {
       text = textData.feedback.fair.text;
     }
 
-    setScoreData({ score: totalScore, stars, text, title });
+    setScoreData({ score: scaledTotalScore, stars, text, title });
 
     // Animate container entrance
     anime({
@@ -123,7 +124,7 @@ const FeedbackScreen = () => {
             className="feedback-score-border"
             draggable="false"
           />
-          <span className="feedback-score-value">{scoreData.stars} / 3</span>
+          <span className="feedback-score-value">{scoreData.score} / 6</span>
         </div>
 
         {/* Replay Button */}
