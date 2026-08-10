@@ -1,0 +1,85 @@
+.hint-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.hint-modal-content-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hint-modal-box {
+  width: 55%;
+  aspect-ratio: 2/1.1;
+  position: relative;
+  text-align: center;
+  background-color: #6088c4;
+  border-radius: 3vw;
+  box-shadow: 0 1vw 0 #4a6a97;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vw;
+}
+
+.hint-modal-close-btn {
+  position: absolute;
+  top: -2vw;
+  right: -1.5vw;
+  width: 4.5vw;
+  height: 4.5vw;
+  background-color: #5275a8;
+  border-radius: 50%;
+  box-shadow: 0 0.5vw 0 #3a5177;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.hint-modal-close-icon {
+  position: relative;
+  width: 2vw;
+  height: 2vw;
+}
+
+.hint-modal-close-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 0.6vw;
+  background-color: white;
+  border-radius: 1vw;
+}
+
+.hint-modal-close-line:first-child {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.hint-modal-close-line:last-child {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.hint-modal-text {
+  color: white;
+  font-size: 2.5vw;
+  font-weight: bold;
+  line-height: 1.6;
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+}

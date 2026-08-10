@@ -1,0 +1,21 @@
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  /* background-image: url("/assets/project_photos/background_img.svg");
+  background-size: cover;
+  background-position: center; */
+}
+
+.game-container {
+  position: relative;
+  width: 100vw;
+  max-width: calc(100vh * 16 / 9);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: transparent;
+  container-type: inline-size;
+}

@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap");
+
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary-color: #ec4899;
+  --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --success: #10b981;
+  --error: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", sans-serif;
+}
+
+body {
+  background-color: #91bbff;
+  color: #1e3a8a;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  direction: rtl; /* Arabic support */
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Glassmorphism containers */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Premium Buttons */
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-radius: 50px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+/* Animations are handled via anime.js, but we can set up transitions */
+.smooth-transition {
+  transition: all 0.3s ease;
+}
+
+/* Form Inputs */
+.input-field {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 120px;
+  text-align: center;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.input-field.success {
+  border-color: var(--success);
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.input-field.error {
+  border-color: var(--error);
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Utility classes */
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  /* background-image: url('/assets/project_photos/background_img.svg');
+  background-size: cover;
+  background-position: center; */
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  aspect-ratio: 16/9;
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: transparent;
+}

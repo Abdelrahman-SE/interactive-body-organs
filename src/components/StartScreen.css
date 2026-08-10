@@ -1,0 +1,21 @@
+.start-screen-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.bg-image-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.start-btn {
+  position: absolute;
+  top: 48%;
+  left: 37%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  cursor: pointer;
+  z-index: 10;
+}
