@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import anime from "animejs";
 import { useGame } from "../context/GameContext";
 import { playSound } from "../utils/audio";
+import textData from "../data/textData.json";
 import "./PhaseOne.css";
 
 const ORGANS_CONFIG = {
@@ -76,8 +77,8 @@ const ORGANS_CONFIG = {
     },
     hitArea: {
       width: "5%",
-      height: "5%",
-      top: "46.5%",
+      height: "10%",
+      top: "42.5%",
       left: "47.5%",
       zIndex: 4,
     },
@@ -105,11 +106,11 @@ const ORGANS_CONFIG = {
       zIndex: 3,
     },
     hitArea: {
-      top: "53.5%",
-      left: "51%",
-      width: "3%",
-      height: "4%",
-      zIndex: 5,
+      top: "51.5%",
+      left: "47%",
+      width: "10%",
+      height: "8%",
+      zIndex: 4,
     },
     draggable: {
       width: "46%",
@@ -186,7 +187,7 @@ const ORGANS_CONFIG = {
     screenStartPos: { top: "76.375%", left: "76.505%" },
   },
 };
-const DraggableOrgan = ({ organConfig, containerRef }) => {
+const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
   const { state, dispatch } = useGame();
   const organ = state.organs[organConfig.id];
   const elRef = useRef(null);
@@ -265,19 +266,24 @@ const DraggableOrgan = ({ organConfig, containerRef }) => {
       droppedZoneId = hitZones[hitZones.length - 1];
     }
 
-    if (droppedZoneId === organConfig.id) {
+    console.log("Dropped item:", organConfig.id, "on zone:", droppedZoneId);
+
+    const isCorrectOrgan = organConfig.id === currentTargetId;
+
+    if (isCorrectOrgan && droppedZoneId === organConfig.id) {
       playSound("success");
       dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
     } else {
       playSound("error");
 
-      if (organ.placedErrors >= 1 && droppedZoneId !== null) {
-        dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
-      } else {
-        dispatch({
-          type: "RECORD_PLACE_ERROR",
-          payload: { id: organConfig.id },
-        });
+      dispatch({
+        type: "RECORD_PLACE_ERROR",
+        payload: { id: currentTargetId },
+      });
+
+      const targetOrganState = state.organs[currentTargetId];
+
+      const bounceBack = () => {
         anime({
           targets: position.current,
           x: 0,
@@ -290,6 +296,15 @@ const DraggableOrgan = ({ organConfig, containerRef }) => {
             }
           },
         });
+      };
+
+      if (targetOrganState.placedErrors >= 1 && droppedZoneId !== null) {
+        dispatch({ type: "PLACE_ORGAN", payload: { id: currentTargetId } });
+        if (!isCorrectOrgan) {
+          bounceBack();
+        }
+      } else {
+        bounceBack();
       }
     }
   };
@@ -321,7 +336,7 @@ const DraggableOrgan = ({ organConfig, containerRef }) => {
           draggable="false"
         />
 
-        {organ.isPlaced && (
+        {organ.isPlaced && organ.placedErrors < 2 && (
           <img
             src="/assets/project_photos/correct_highlight.svg"
             alt="correct"
@@ -338,7 +353,8 @@ const DraggableOrgan = ({ organConfig, containerRef }) => {
           />
         )}
 
-        {!organ.isPlaced && organ.placedErrors > 0 && (
+        {((organ.isPlaced && organ.placedErrors >= 2) ||
+          (!organ.isPlaced && organ.placedErrors >= 2)) && (
           <img
             src="/assets/project_photos/wrong_highlight.svg"
             alt="wrong"
@@ -445,8 +461,29 @@ const PhaseOne = () => {
     }
   }, [state.organs, dispatch]);
 
+  const orderedOrgans = [
+    "brain",
+    "heart",
+    "lungs",
+    "kidneys",
+    "stomach",
+    "intestine",
+  ];
+  const currentTargetId = orderedOrgans.find(
+    (id) => !state.organs[id].isPlaced,
+  );
+  const currentQuestion = currentTargetId
+    ? textData.phase1Questions.find((q) => q.id === currentTargetId)?.text
+    : "";
+
   return (
     <div className="phase-container" ref={containerRef}>
+      {currentQuestion && (
+        <div key={currentTargetId} className="phase1-question-container">
+          {currentQuestion}
+        </div>
+      )}
+
       <img
         src="/assets/project_photos/scene1.svg"
         alt="Background"
@@ -463,13 +500,13 @@ const PhaseOne = () => {
 
       {/* Top Left Buttons */}
       <div className="top-left-buttons">
-        <img
+        {/* <img
           src="/assets/project_photos/home_btn.svg"
           alt="Home"
           className="nav-btn"
           onClick={() => dispatch({ type: "RESTART_GAME" })}
           draggable="false"
-        />
+        /> */}
         <img
           src="/assets/project_photos/hint_btn.svg"
           alt="Hint"
@@ -527,6 +564,7 @@ const PhaseOne = () => {
           key={`drag-${organConfig.id}`}
           organConfig={organConfig}
           containerRef={containerRef}
+          currentTargetId={currentTargetId}
         />
       ))}
     </div>

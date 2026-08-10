@@ -27,15 +27,11 @@ const PhaseTwo = () => {
     intestine: "",
   });
 
-  useEffect(() => {
-    const allNamed = Object.values(state.organs).every((o) => o.isNamed);
-    if (allNamed) {
-      const timer = setTimeout(() => {
-        dispatch({ type: "ADVANCE_FEEDBACK" });
-      }, 1500); // 1.5 seconds delay before feedback
-      return () => clearTimeout(timer);
-    }
-  }, [state.organs, dispatch]);
+  const isAllFilled = Object.keys(ORGANS_CONFIG).every((id) => {
+    const organ = state.organs[id];
+    if (organ.isNamed) return true;
+    return inputs[id] && inputs[id].trim() !== "";
+  });
 
   const handleInputChange = (id, value) => {
     setInputs((prev) => ({ ...prev, [id]: value }));
@@ -58,7 +54,7 @@ const PhaseTwo = () => {
       }
 
       const isMatch = organ.names.some(
-        (correctName) => normalizeArabic(correctName) === normalizedInput
+        (correctName) => normalizeArabic(correctName) === normalizedInput,
       );
 
       if (isMatch) {
@@ -76,6 +72,10 @@ const PhaseTwo = () => {
     } else if (anyError) {
       playSound("error");
     }
+
+    setTimeout(() => {
+      dispatch({ type: "ADVANCE_FEEDBACK" });
+    }, 1500);
   };
 
   return (
@@ -89,13 +89,13 @@ const PhaseTwo = () => {
 
       {/* Top Left Buttons */}
       <div className="top-left-buttons">
-        <img
+        {/* <img
           src="/assets/project_photos/home_btn.svg"
           alt="Home"
           className="nav-btn"
           onClick={() => dispatch({ type: "RESTART_GAME" })}
           draggable="false"
-        />
+        /> */}
         <img
           src="/assets/project_photos/hint_btn.svg"
           alt="Hint"
@@ -107,11 +107,16 @@ const PhaseTwo = () => {
 
       {/* Verify Button */}
       <img
-        src="/assets/project_photos/check_btn.svg"
+        src={
+          isAllFilled
+            ? "/assets/project_photos/check_btn.svg"
+            : "/assets/project_photos/check_btn_dimmed.svg"
+        }
         alt="Verify"
-        onClick={handleVerify}
+        onClick={isAllFilled ? handleVerify : undefined}
         className="verify-btn"
         draggable="false"
+        style={{ cursor: isAllFilled ? "pointer" : "default" }}
       />
 
       {/* Center Image */}
