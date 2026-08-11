@@ -11,6 +11,11 @@ const HintModal = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    if (state.phase === 'phase1' || state.phase === 'hint1') {
+      playSound('hint_1');
+    } else if (state.phase === 'phase2' || state.phase === 'hint2') {
+      playSound('hint_2');
+    }
     // Fade in the full screen
     anime({
       targets: containerRef.current,

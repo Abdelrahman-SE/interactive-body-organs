@@ -62,8 +62,7 @@ const FeedbackScreen = () => {
     });
 
     // Play end sound based on score
-    if (stars >= 2) playSound("win");
-    else playSound("lose");
+    playSound(`feedbackStars_${stars}`);
   }, [state.organs]);
 
   const handleRestart = () => {

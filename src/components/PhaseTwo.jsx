@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import { playSound } from "../utils/audio";
+import CheckBtnSvg from "../../public/assets/project_photos/check_btn.svg?react";
+import CheckBtnDimmedSvg from "../../public/assets/project_photos/check_btn_dimmed.svg?react";
 import "./PhaseTwo.css";
 
 const ORGANS_CONFIG = {
@@ -106,18 +108,18 @@ const PhaseTwo = () => {
       </div>
 
       {/* Verify Button */}
-      <img
-        src={
-          isAllFilled
-            ? "./assets/project_photos/check_btn.svg"
-            : "./assets/project_photos/check_btn_dimmed.svg"
-        }
-        alt="Verify"
-        onClick={isAllFilled ? handleVerify : undefined}
-        className="verify-btn"
-        draggable="false"
-        style={{ cursor: isAllFilled ? "pointer" : "default" }}
-      />
+      {isAllFilled ? (
+        <CheckBtnSvg
+          onClick={handleVerify}
+          className="nav-btn verify-btn active"
+          style={{ userSelect: 'none', cursor: 'pointer', direction: 'ltr' }}
+        />
+      ) : (
+        <CheckBtnDimmedSvg
+          className="nav-btn verify-btn dimmed"
+          style={{ userSelect: 'none', pointerEvents: 'none', direction: 'ltr' }}
+        />
+      )}
 
       {/* Center Image */}
       <img

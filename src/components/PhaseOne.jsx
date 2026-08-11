@@ -286,7 +286,10 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
     if (isCorrectOrgan && droppedZoneId === organConfig.id) {
       playSound("success");
       dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
-      console.log(`تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`, state.organs[organConfig.id].placedErrors + 1);
+      console.log(
+        `تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`,
+        state.organs[organConfig.id].placedErrors + 1,
+      );
     } else if (droppedZoneId !== null) {
       playSound("error");
 
@@ -296,7 +299,10 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       });
 
       const targetOrganState = state.organs[currentTargetId];
-      console.log(`محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`, targetOrganState.placedErrors + 1);
+      console.log(
+        `محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`,
+        targetOrganState.placedErrors + 1,
+      );
 
       if (targetOrganState.placedErrors >= 1) {
         dispatch({ type: "PLACE_ORGAN", payload: { id: currentTargetId } });
@@ -311,13 +317,6 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       bounceBack();
     }
   };
-
-  const imgSuffix = organ.isPlaced ? "_highlight.svg" : "_draggable.svg";
-
-  // Calculate width proportional to the container (1920x1080)
-  // For organs, maybe around 8% of width
-  const organWidth = "12%";
-
   return (
     <>
       <div

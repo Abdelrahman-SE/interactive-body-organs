@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import anime from 'animejs';
 import { useGame } from '../context/GameContext';
 import { playSound } from '../utils/audio';
+import StartScreenSvg from '../../public/assets/project_photos/start_screen.svg?react';
 import './StartScreen.css';
 
 const StartScreen = () => {
@@ -28,11 +29,9 @@ const StartScreen = () => {
 
   return (
     <div className="start-screen-container">
-      <img 
-        src="./assets/project_photos/start_screen.svg" 
-        alt="Background" 
+      <StartScreenSvg 
         className="bg-image-contain"
-        draggable="false"
+        style={{ pointerEvents: 'none', userSelect: 'none', direction: 'ltr' }}
       />
       
       {/* Start Button */}
