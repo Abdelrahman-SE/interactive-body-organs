@@ -102,7 +102,10 @@ const PhaseTwo = () => {
           src="./assets/project_photos/hint_btn.svg"
           alt="Hint"
           className="nav-btn"
-          onClick={() => dispatch({ type: "TOGGLE_HINT" })}
+          onClick={() => {
+            playSound("click");
+            dispatch({ type: "TOGGLE_HINT" });
+          }}
           draggable="false"
         />
       </div>
@@ -110,14 +113,21 @@ const PhaseTwo = () => {
       {/* Verify Button */}
       {isAllFilled ? (
         <CheckBtnSvg
-          onClick={handleVerify}
+          onClick={() => {
+            playSound("click");
+            handleVerify();
+          }}
           className="nav-btn verify-btn active"
-          style={{ userSelect: 'none', cursor: 'pointer', direction: 'ltr' }}
+          style={{ userSelect: "none", cursor: "pointer", direction: "ltr" }}
         />
       ) : (
         <CheckBtnDimmedSvg
           className="nav-btn verify-btn dimmed"
-          style={{ userSelect: 'none', pointerEvents: 'none', direction: 'ltr' }}
+          style={{
+            userSelect: "none",
+            pointerEvents: "none",
+            direction: "ltr",
+          }}
         />
       )}
 

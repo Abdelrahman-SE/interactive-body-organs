@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import anime from 'animejs';
-import { useGame } from '../context/GameContext';
-import { playSound } from '../utils/audio';
-import StartScreenSvg from '../../public/assets/project_photos/start_screen.svg?react';
-import './StartScreen.css';
+import React, { useEffect, useRef } from "react";
+import anime from "animejs";
+import { useGame } from "../context/GameContext";
+import { playSound } from "../utils/audio";
+import StartScreenSvg from "../../public/assets/project_photos/start_screen.svg?react";
+import "./StartScreen.css";
 
 const StartScreen = () => {
   const { dispatch } = useGame();
@@ -14,28 +14,28 @@ const StartScreen = () => {
       targets: playBtnRef.current,
       scale: [1, 1.05],
       duration: 1000,
-      direction: 'alternate',
+      direction: "alternate",
       loop: true,
-      easing: 'easeInOutSine'
+      easing: "easeInOutSine",
     });
 
     return () => animation.pause();
   }, []);
 
   const handleStart = () => {
-    playSound('start');
-    dispatch({ type: 'START_GAME' });
+    playSound("click");
+    dispatch({ type: "START_GAME" });
   };
 
   return (
     <div className="start-screen-container">
-      <StartScreenSvg 
+      <StartScreenSvg
         className="bg-image-contain"
-        style={{ pointerEvents: 'none', userSelect: 'none', direction: 'ltr' }}
+        style={{ pointerEvents: "none", userSelect: "none", direction: "ltr" }}
       />
-      
+
       {/* Start Button */}
-      <img 
+      <img
         ref={playBtnRef}
         src="./assets/project_photos/start_btn.svg"
         alt="Start Game"

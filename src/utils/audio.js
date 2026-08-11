@@ -5,6 +5,8 @@ const audioFiles = {
   feedbackStars_1: "./assets/audio/feedbackStars_1.mp3",
   feedbackStars_2: "./assets/audio/feedbackStars_2.mp3",
   feedbackStars_3: "./assets/audio/feedbackStars_3.mp3",
+  click: "./assets/audio/click.mp3",
+  drag: "./assets/audio/drag.mp3",
 };
 
 const activeAudios = {};
@@ -28,5 +30,18 @@ export const playSound = (soundType) => {
     };
   } else {
     console.log(`[Audio]: No audio file found for -> ${soundType}`);
+  }
+};
+
+export const stopAllSounds = () => {
+  Object.values(activeAudios).forEach((audio) => {
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  });
+  // Clear the activeAudios object
+  for (const key in activeAudios) {
+    delete activeAudios[key];
   }
 };

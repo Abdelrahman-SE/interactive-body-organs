@@ -216,7 +216,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
     setIsDragging(true);
     initialPointer.current = { x: e.clientX, y: e.clientY };
     e.target.setPointerCapture(e.pointerId);
-    playSound("pick");
+    playSound("drag");
   };
 
   const handlePointerMove = (e) => {
@@ -512,7 +512,10 @@ const PhaseOne = () => {
           src="./assets/project_photos/hint_btn.svg"
           alt="Hint"
           className="nav-btn"
-          onClick={() => dispatch({ type: "TOGGLE_HINT" })}
+          onClick={() => {
+            playSound("click");
+            dispatch({ type: "TOGGLE_HINT" });
+          }}
           draggable="false"
         />
       </div>

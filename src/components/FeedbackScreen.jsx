@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import anime from "animejs";
 import { useGame } from "../context/GameContext";
-import { playSound } from "../utils/audio";
+import { playSound, stopAllSounds } from "../utils/audio";
 import textData from "../data/textData.json";
 import "./FeedbackScreen.css";
 
@@ -66,7 +66,7 @@ const FeedbackScreen = () => {
   }, [state.organs]);
 
   const handleRestart = () => {
-    playSound("start");
+    stopAllSounds();
     dispatch({ type: "RESTART_GAME" });
   };
 
@@ -130,7 +130,10 @@ const FeedbackScreen = () => {
         <img
           src="./assets/project_photos/reload_btn.svg"
           alt="Replay"
-          onClick={handleRestart}
+          onClick={() => {
+            handleRestart();
+            playSound("click");
+          }}
           className="feedback-reload-btn"
           draggable="false"
         />
