@@ -29,7 +29,7 @@ const StartScreen = () => {
   return (
     <div className="start-screen-container">
       <img 
-        src="/assets/project_photos/start_screen.svg" 
+        src="./assets/project_photos/start_screen.svg" 
         alt="Background" 
         className="bg-image-contain"
         draggable="false"
@@ -38,7 +38,7 @@ const StartScreen = () => {
       {/* Start Button */}
       <img 
         ref={playBtnRef}
-        src="/assets/project_photos/start_btn.svg"
+        src="./assets/project_photos/start_btn.svg"
         alt="Start Game"
         onClick={handleStart}
         className="start-btn"

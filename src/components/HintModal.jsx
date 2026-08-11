@@ -58,7 +58,7 @@ const HintModal = () => {
       className="hint-modal-overlay"
     >
       <img 
-        src="/assets/project_photos/background_img.svg" 
+        src="./assets/project_photos/background_img.svg" 
         alt="Background" 
         className="feedback-border"
         draggable="false"

@@ -333,7 +333,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       >
         {/* Background Container Image */}
         <img
-          src="/assets/project_photos/draggedItemContainer.svg"
+          src="./assets/project_photos/draggedItemContainer.svg"
           alt="Container"
           style={{ width: "100%", height: "100%", pointerEvents: "none" }}
           draggable="false"
@@ -341,7 +341,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
 
         {organ.isPlaced && organ.placedErrors < 2 && (
           <img
-            src="/assets/project_photos/correct_highlight.svg"
+            src="./assets/project_photos/correct_highlight.svg"
             alt="correct"
             style={{
               position: "absolute",
@@ -358,7 +358,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
 
         {organ.isPlaced && organ.placedErrors >= 2 && (
           <img
-            src="/assets/project_photos/wrong_highlight.svg"
+            src="./assets/project_photos/wrong_highlight.svg"
             alt="wrong"
             style={{
               position: "absolute",
@@ -487,14 +487,14 @@ const PhaseOne = () => {
       )}
 
       <img
-        src="/assets/project_photos/scene1.svg"
+        src="./assets/project_photos/scene1.svg"
         alt="Background"
         className="bg-image-contain"
         draggable="false"
       />
 
       <img
-        src="/assets/project_photos/human_body.svg"
+        src="./assets/project_photos/human_body.svg"
         alt="Human Body"
         className="human-body"
         draggable="false"
@@ -503,14 +503,14 @@ const PhaseOne = () => {
       {/* Top Left Buttons */}
       <div className="top-left-buttons">
         {/* <img
-          src="/assets/project_photos/home_btn.svg"
+          src="./assets/project_photos/home_btn.svg"
           alt="Home"
           className="nav-btn"
           onClick={() => dispatch({ type: "RESTART_GAME" })}
           draggable="false"
         /> */}
         <img
-          src="/assets/project_photos/hint_btn.svg"
+          src="./assets/project_photos/hint_btn.svg"
           alt="Hint"
           className="nav-btn"
           onClick={() => dispatch({ type: "TOGGLE_HINT" })}

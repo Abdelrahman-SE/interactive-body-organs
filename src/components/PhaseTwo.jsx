@@ -81,7 +81,7 @@ const PhaseTwo = () => {
   return (
     <div className="phase-container">
       <img
-        src="/assets/project_photos/scene2.svg"
+        src="./assets/project_photos/scene2.svg"
         alt="Background"
         className="bg-image-contain"
         draggable="false"
@@ -90,14 +90,14 @@ const PhaseTwo = () => {
       {/* Top Left Buttons */}
       <div className="top-left-buttons">
         {/* <img
-          src="/assets/project_photos/home_btn.svg"
+          src="./assets/project_photos/home_btn.svg"
           alt="Home"
           className="nav-btn"
           onClick={() => dispatch({ type: "RESTART_GAME" })}
           draggable="false"
         /> */}
         <img
-          src="/assets/project_photos/hint_btn.svg"
+          src="./assets/project_photos/hint_btn.svg"
           alt="Hint"
           className="nav-btn"
           onClick={() => dispatch({ type: "TOGGLE_HINT" })}
@@ -109,8 +109,8 @@ const PhaseTwo = () => {
       <img
         src={
           isAllFilled
-            ? "/assets/project_photos/check_btn.svg"
-            : "/assets/project_photos/check_btn_dimmed.svg"
+            ? "./assets/project_photos/check_btn.svg"
+            : "./assets/project_photos/check_btn_dimmed.svg"
         }
         alt="Verify"
         onClick={isAllFilled ? handleVerify : undefined}
@@ -121,7 +121,7 @@ const PhaseTwo = () => {
 
       {/* Center Image */}
       <img
-        src="/assets/project_photos/humanBodyScene2.svg"
+        src="./assets/project_photos/humanBodyScene2.svg"
         alt="Human Body"
         className="human-body-center"
         draggable="false"

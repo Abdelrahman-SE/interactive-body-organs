@@ -88,7 +88,7 @@ const FeedbackScreen = () => {
   return (
     <div className="start-screen-container">
       <img
-        src="/assets/project_photos/background_img.svg"
+        src="./assets/project_photos/background_img.svg"
         alt="Background"
         className="bg-image-contain"
         draggable="false"
@@ -96,7 +96,7 @@ const FeedbackScreen = () => {
 
       <div ref={containerRef} className="feedback-modal">
         <img
-          src="/assets/project_photos/feedback_border.svg"
+          src="./assets/project_photos/feedback_border.svg"
           alt="Border"
           className="feedback-border"
           draggable="false"
@@ -119,7 +119,7 @@ const FeedbackScreen = () => {
         {/* Score Pill */}
         <div className="feedback-score-pill">
           <img
-            src="/assets/project_photos/score_border.svg"
+            src="./assets/project_photos/score_border.svg"
             alt="Score background"
             className="feedback-score-border"
             draggable="false"
@@ -129,7 +129,7 @@ const FeedbackScreen = () => {
 
         {/* Replay Button */}
         <img
-          src="/assets/project_photos/reload_btn.svg"
+          src="./assets/project_photos/reload_btn.svg"
           alt="Replay"
           onClick={handleRestart}
           className="feedback-reload-btn"
