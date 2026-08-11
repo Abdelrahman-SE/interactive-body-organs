@@ -384,7 +384,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
           }}
         >
           <img
-            src={`/assets/project_photos/${organConfig.id}_dimmed.svg`}
+            src={`./assets/project_photos/${organConfig.id}_dimmed.svg`}
             alt="dimmed"
             className="slot-dimmed"
             draggable="false"
@@ -420,7 +420,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
         }}
       >
         <img
-          src={`/assets/project_photos/${organConfig.id}_draggable.svg`}
+          src={`./assets/project_photos/${organConfig.id}_draggable.svg`}
           alt={organ.names[0]}
           style={{
             position: organConfig.id === "intestine" ? "absolute" : "static",
@@ -434,7 +434,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
         />
         {organConfig.id === "intestine" && (
           <img
-            src={`/assets/project_photos/intestine_halfed.svg`}
+            src={`./assets/project_photos/intestine_halfed.svg`}
             alt={`${organ.names[0]} halfed`}
             style={{
               position: "absolute",
@@ -538,7 +538,7 @@ const PhaseOne = () => {
 
           {/* Visual Highlight */}
           <img
-            src={`/assets/project_photos/${organ.id}_highlight.svg`}
+            src={`./assets/project_photos/${organ.id}_highlight.svg`}
             alt="highlight"
             className="organ-highlight-img"
             draggable="false"

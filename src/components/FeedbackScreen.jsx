@@ -104,7 +104,7 @@ const FeedbackScreen = () => {
 
         {/* Stars */}
         <img
-          src={`/assets/project_photos/${getStarsImg()}`}
+          src={`./assets/project_photos/${getStarsImg()}`}
           alt="Stars"
           className="feedback-stars-img"
           draggable="false"

@@ -143,7 +143,7 @@ const PhaseTwo = () => {
             }}
           >
             <img
-              src={`/assets/project_photos/${isSuccess ? "input_correct_highlight.svg" : isError ? "input_wrong_highlight.svg" : "input_section.svg"}`}
+              src={`./assets/project_photos/${isSuccess ? "input_correct_highlight.svg" : isError ? "input_wrong_highlight.svg" : "input_section.svg"}`}
               alt="Input background"
               className="input-bg"
               draggable="false"
