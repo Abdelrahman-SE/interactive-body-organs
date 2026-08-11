@@ -21,7 +21,7 @@ const FeedbackScreen = () => {
     let textScore = 0;
 
     Object.values(state.organs).forEach((organ) => {
-      if (organ.placedErrors === 0) dragScore += 1;
+      if (organ.placedErrors < 2) dragScore += 1;
       if (organ.namedErrors === 0) textScore += 1;
     });
 

@@ -239,8 +239,6 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       x: position.current.x + dx,
       y: position.current.y + dy,
     };
-
-    const elRect = elRef.current.getBoundingClientRect();
     const dropZones = containerRef.current.querySelectorAll(".drop-zone");
 
     let droppedZoneId = null;
@@ -270,10 +268,26 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
 
     const isCorrectOrgan = organConfig.id === currentTargetId;
 
+    const bounceBack = () => {
+      anime({
+        targets: position.current,
+        x: 0,
+        y: 0,
+        duration: 500,
+        easing: "easeOutElastic(1, .8)",
+        update: function () {
+          if (elRef.current) {
+            elRef.current.style.transform = `translate(${position.current.x}px, ${position.current.y}px) scale(${organ.isPlaced ? organConfig.draggable.placedScale : 1}) rotate(${organ.isPlaced ? organConfig.draggable.placedRotate : "0deg"})`;
+          }
+        },
+      });
+    };
+
     if (isCorrectOrgan && droppedZoneId === organConfig.id) {
       playSound("success");
       dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
-    } else {
+      console.log(`تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`, state.organs[organConfig.id].placedErrors + 1);
+    } else if (droppedZoneId !== null) {
       playSound("error");
 
       dispatch({
@@ -282,23 +296,9 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       });
 
       const targetOrganState = state.organs[currentTargetId];
+      console.log(`محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`, targetOrganState.placedErrors + 1);
 
-      const bounceBack = () => {
-        anime({
-          targets: position.current,
-          x: 0,
-          y: 0,
-          duration: 500,
-          easing: "easeOutElastic(1, .8)",
-          update: function () {
-            if (elRef.current) {
-              elRef.current.style.transform = `translate(${position.current.x}px, ${position.current.y}px) scale(${organ.isPlaced ? organConfig.draggable.placedScale : 1}) rotate(${organ.isPlaced ? organConfig.draggable.placedRotate : "0deg"})`;
-            }
-          },
-        });
-      };
-
-      if (targetOrganState.placedErrors >= 1 && droppedZoneId !== null) {
+      if (targetOrganState.placedErrors >= 1) {
         dispatch({ type: "PLACE_ORGAN", payload: { id: currentTargetId } });
         if (!isCorrectOrgan) {
           bounceBack();
@@ -306,6 +306,9 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       } else {
         bounceBack();
       }
+    } else {
+      // Dropped on empty space, don't count as error
+      bounceBack();
     }
   };
 
@@ -353,8 +356,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
           />
         )}
 
-        {((organ.isPlaced && organ.placedErrors >= 2) ||
-          (!organ.isPlaced && organ.placedErrors >= 2)) && (
+        {organ.isPlaced && organ.placedErrors >= 2 && (
           <img
             src="/assets/project_photos/wrong_highlight.svg"
             alt="wrong"
