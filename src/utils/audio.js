@@ -7,6 +7,12 @@ const audioFiles = {
   feedbackStars_3: "./assets/audio/feedbackStars_3.mp3",
   click: "./assets/audio/click.mp3",
   drag: "./assets/audio/drag.mp3",
+  q_brain: "./assets/audio/q1.mp3",
+  q_heart: "./assets/audio/q2.mp3",
+  q_lungs: "./assets/audio/q3.mp3",
+  q_kidneys: "./assets/audio/q4.mp3",
+  q_stomach: "./assets/audio/q5.mp3",
+  q_intestine: "./assets/audio/q6.mp3",
 };
 
 const activeAudios = {};
@@ -43,5 +49,13 @@ export const stopAllSounds = () => {
   // Clear the activeAudios object
   for (const key in activeAudios) {
     delete activeAudios[key];
+  }
+};
+
+export const stopSound = (soundType) => {
+  if (activeAudios[soundType]) {
+    activeAudios[soundType].pause();
+    activeAudios[soundType].currentTime = 0;
+    delete activeAudios[soundType];
   }
 };

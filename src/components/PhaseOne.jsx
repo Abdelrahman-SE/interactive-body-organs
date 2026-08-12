@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import anime from "animejs";
 import { useGame } from "../context/GameContext";
-import { playSound } from "../utils/audio";
+import { playSound, stopSound } from "../utils/audio";
 import textData from "../data/textData.json";
 import "./PhaseOne.css";
 
@@ -217,6 +217,9 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
     initialPointer.current = { x: e.clientX, y: e.clientY };
     e.target.setPointerCapture(e.pointerId);
     playSound("drag");
+    if (currentTargetId) {
+      stopSound(`q_${currentTargetId}`);
+    }
   };
 
   const handlePointerMove = (e) => {
@@ -476,6 +479,12 @@ const PhaseOne = () => {
   const currentQuestion = currentTargetId
     ? textData.phase1Questions.find((q) => q.id === currentTargetId)?.text
     : "";
+
+  useEffect(() => {
+    if (currentTargetId) {
+      playSound(`q_${currentTargetId}`);
+    }
+  }, [currentTargetId]);
 
   return (
     <div className="phase-container" ref={containerRef}>
