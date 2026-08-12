@@ -162,7 +162,7 @@ const PhaseTwo = () => {
             />
             <input
               type="text"
-              value={isSuccess ? organ.names[0] : inputs[config.id]}
+              value={inputs[config.id]}
               onChange={(e) => handleInputChange(config.id, e.target.value)}
               disabled={isSuccess}
               className="input-field-bubble"
