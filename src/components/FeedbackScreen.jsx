@@ -26,8 +26,7 @@ const FeedbackScreen = () => {
     });
 
     const totalRawScore = dragScore + textScore; // Out of 12
-    const scaledTotalScore = totalRawScore / 2; // Out of 6 (3 for phase 1, 3 for phase 2)
-    const percentage = (scaledTotalScore / 6) * 100;
+    const percentage = (totalRawScore / 12) * 100;
 
     let stars = 0;
     let text = "";
@@ -51,7 +50,7 @@ const FeedbackScreen = () => {
       text = textData.feedback.fair.text;
     }
 
-    setScoreData({ score: scaledTotalScore, stars, text, title });
+    setScoreData({ score: totalRawScore, stars, text, title });
 
     // Animate container entrance
     anime({
@@ -61,6 +60,18 @@ const FeedbackScreen = () => {
       easing: "easeOutElastic(1, .8)",
     });
 
+    // Animate stars pop in one by one after state updates DOM
+    setTimeout(() => {
+      anime({
+        targets: ".star-animated",
+        scale: [0, 1], // Scale from center
+        opacity: [0, 1],
+        duration: 1000,
+        delay: anime.stagger(250, { start: 400 }), // Staggered appearance!
+        easing: "easeOutElastic(1, .5)",
+      });
+    }, 50);
+
     // Play end sound based on score
     playSound(`feedbackStars_${stars}`);
   }, [state.organs]);
@@ -68,20 +79,6 @@ const FeedbackScreen = () => {
   const handleRestart = () => {
     stopAllSounds();
     dispatch({ type: "RESTART_GAME" });
-  };
-
-  const getStarsImg = () => {
-    switch (scoreData.stars) {
-      case 3:
-        return "stars_filled.svg";
-      case 2:
-        return "stars2.svg"; // Assuming it's named like this
-      case 1:
-        return "stars1.svg";
-      case 0:
-      default:
-        return "stars_dimmed.svg";
-    }
   };
 
   return (
@@ -102,17 +99,33 @@ const FeedbackScreen = () => {
         />
 
         {/* Stars */}
-        <img
-          src={`./assets/project_photos/${getStarsImg()}`}
-          alt="Stars"
-          className="feedback-stars-img"
-          draggable="false"
-        />
+        <div className="feedback-stars-container">
+          <div className="star-wrapper star-right">
+            <img
+              src={`./assets/project_photos/${scoreData.stars >= 1 ? "star_fill_right.svg" : "star_dimmed_right.svg"}`}
+              alt="Star Right"
+              className="star-base star-animated"
+              draggable="false"
+            />
+          </div>
 
-        {/* Content */}
-        <div className="feedback-content">
-          <h1 className="feedback-title">{scoreData.title}</h1>
-          <p className="feedback-text">{scoreData.text}</p>
+          <div className="star-wrapper star-mid">
+            <img
+              src={`./assets/project_photos/${scoreData.stars >= 2 ? "star_fill_mid.svg" : "star_dimed_mid.svg"}`}
+              alt="Star Mid"
+              className="star-base star-animated"
+              draggable="false"
+            />
+          </div>
+
+          <div className="star-wrapper star-left">
+            <img
+              src={`./assets/project_photos/${scoreData.stars >= 3 ? "star_fill_left.svg" : "star_dimmed_left.svg"}`}
+              alt="Star Left"
+              className="star-base star-animated"
+              draggable="false"
+            />
+          </div>
         </div>
 
         {/* Score Pill */}
@@ -123,7 +136,13 @@ const FeedbackScreen = () => {
             className="feedback-score-border"
             draggable="false"
           />
-          <span className="feedback-score-value">{scoreData.score} / 6</span>
+          <span className="feedback-score-value">{scoreData.score} / 12</span>
+        </div>
+
+        {/* Content */}
+        <div className="feedback-content">
+          <h1 className="feedback-title">{scoreData.title}</h1>
+          <p className="feedback-text">{scoreData.text}</p>
         </div>
 
         {/* Replay Button */}

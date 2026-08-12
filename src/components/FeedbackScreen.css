@@ -16,20 +16,55 @@
   left: 0;
 }
 
-.feedback-stars-img {
+.feedback-stars-container {
   position: absolute;
-  top: -12.5%;
+  top: -15%;
   left: 50%;
   transform: translate(-50%, 0);
   width: 38%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: rtl;
+}
+
+.star-wrapper {
+  position: relative;
+  width: 33.33%;
+  display: flex;
+  justify-content: center;
+}
+
+.star-left {
+  transform: translateY(50%);
+}
+
+.star-mid {
+  transform: translateY(12%);
+  width: 36%;
+  z-index: 2;
+}
+
+.star-right {
+  transform: translateY(50%);
+}
+
+.star-base {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.star-animated {
+  opacity: 0; /* Animated by anime.js */
 }
 
 .feedback-content {
   position: absolute;
-  top: 25%;
+  bottom: 20%;
   left: 5%;
   width: 90%;
-  height: 50%;
+  height: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,23 +73,23 @@
 }
 
 .feedback-title {
-  color: #2b4f8c;
+  color: #395b90;
   font-size: 4cqw;
 }
 
 .feedback-text {
-  color: #52525b;
+  color: #395b90;
   font-size: 2.5cqw;
   margin: 0;
-  line-height: 1.2;
+  font-weight: bold;
 }
 
 .feedback-score-pill {
   position: absolute;
-  bottom: 10%;
+  top: 23%;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 25%;
+  width: 23%;
   height: 18%;
   display: flex;
   justify-content: center;
@@ -71,17 +106,18 @@
 
 .feedback-score-value {
   color: white;
-  font-size: 3cqw;
+  font-size: 2.5cqw;
   font-weight: bold;
   z-index: 10;
   font-family: "Cairo", sans-serif;
+  direction: ltr;
 }
 
 .feedback-reload-btn {
   position: absolute;
-  bottom: -12%;
+  bottom: -6%;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 12%;
+  width: 10%;
   cursor: pointer;
 }

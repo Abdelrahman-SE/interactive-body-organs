@@ -490,7 +490,7 @@ const PhaseOne = () => {
     <div className="phase-container" ref={containerRef}>
       {currentQuestion && (
         <div key={currentTargetId} className="phase1-question-container">
-          {currentQuestion}
+          <p className="phase1-question-text">{currentQuestion}</p>
         </div>
       )}
 
