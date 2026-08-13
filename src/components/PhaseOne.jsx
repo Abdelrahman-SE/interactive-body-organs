@@ -522,6 +522,9 @@ const PhaseOne = () => {
           alt="Hint"
           className="nav-btn"
           onClick={() => {
+            if (currentTargetId) {
+              stopSound(`q_${currentTargetId}`);
+            }
             playSound("click");
             dispatch({ type: "TOGGLE_HINT" });
           }}
