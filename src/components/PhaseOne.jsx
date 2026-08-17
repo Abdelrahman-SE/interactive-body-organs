@@ -267,7 +267,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       droppedZoneId = hitZones[hitZones.length - 1];
     }
 
-    console.log("Dropped item:", organConfig.id, "on zone:", droppedZoneId);
+    //console.log("Dropped item:", organConfig.id, "on zone:", droppedZoneId);
 
     const isCorrectOrgan = organConfig.id === currentTargetId;
 
@@ -288,15 +288,19 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
 
     if (isCorrectOrgan && droppedZoneId === organConfig.id) {
       playSound("success");
-      try { if (window.gameSCORM) window.gameSCORM.endQuestion(true); } catch {}
+      try {
+        if (window.gameSCORM) window.gameSCORM.endQuestion(true);
+      } catch {}
       dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
-      console.log(
-        `تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`,
-        state.organs[organConfig.id].placedErrors + 1,
-      );
+      // console.log(
+      //   `تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`,
+      //   state.organs[organConfig.id].placedErrors + 1,
+      // );
     } else if (droppedZoneId !== null) {
       playSound("error");
-      try { if (window.gameSCORM) window.gameSCORM.endQuestion(false); } catch {}
+      try {
+        if (window.gameSCORM) window.gameSCORM.endQuestion(false);
+      } catch {}
 
       dispatch({
         type: "RECORD_PLACE_ERROR",
@@ -304,10 +308,10 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       });
 
       const targetOrganState = state.organs[currentTargetId];
-      console.log(
-        `محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`,
-        targetOrganState.placedErrors + 1,
-      );
+      // console.log(
+      //   `محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`,
+      //   targetOrganState.placedErrors + 1,
+      // );
 
       if (targetOrganState.placedErrors >= 1) {
         dispatch({ type: "PLACE_ORGAN", payload: { id: currentTargetId } });
@@ -479,7 +483,7 @@ const PhaseOne = () => {
     (id) => !state.organs[id].isPlaced,
   );
   const currentQuestionIndex = orderedOrgans.indexOf(currentTargetId);
-  
+
   const currentQuestion = currentTargetId
     ? textData.phase1Questions.find((q) => q.id === currentTargetId)?.text
     : "";
@@ -488,7 +492,8 @@ const PhaseOne = () => {
     if (currentTargetId) {
       playSound(`q_${currentTargetId}`);
       try {
-        if (window.gameSCORM) window.gameSCORM.startQuestion("interactions" + currentQuestionIndex);
+        if (window.gameSCORM)
+          window.gameSCORM.startQuestion("interactions" + currentQuestionIndex);
       } catch {}
     }
   }, [currentTargetId, currentQuestionIndex]);

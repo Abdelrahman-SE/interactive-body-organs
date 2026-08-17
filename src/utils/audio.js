@@ -35,7 +35,7 @@ export const playSound = (soundType) => {
       delete activeAudios[soundType];
     };
   } else {
-    console.log(`[Audio]: No audio file found for -> ${soundType}`);
+    //console.log(`[Audio]: No audio file found for -> ${soundType}`);
   }
 };
 
