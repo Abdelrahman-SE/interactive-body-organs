@@ -298,16 +298,20 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       // );
     } else if (droppedZoneId !== null) {
       playSound("error");
-      try {
-        if (window.gameSCORM) window.gameSCORM.endQuestion(false);
-      } catch {}
+      
+      const targetOrganState = state.organs[currentTargetId];
+
+      if (targetOrganState.placedErrors >= 1) {
+        try {
+          if (window.gameSCORM) window.gameSCORM.endQuestion(false);
+        } catch {}
+      }
 
       dispatch({
         type: "RECORD_PLACE_ERROR",
         payload: { id: currentTargetId },
       });
 
-      const targetOrganState = state.organs[currentTargetId];
       // console.log(
       //   `محاولة خاطئة! عدد المحاولات الخاطئة حتى الآن للعضو ${currentTargetId}:`,
       //   targetOrganState.placedErrors + 1,
@@ -493,7 +497,7 @@ const PhaseOne = () => {
       playSound(`q_${currentTargetId}`);
       try {
         if (window.gameSCORM)
-          window.gameSCORM.startQuestion("interactions" + currentQuestionIndex);
+          window.gameSCORM.startQuestion("interactions" + (currentQuestionIndex + 1));
       } catch {}
     }
   }, [currentTargetId, currentQuestionIndex]);

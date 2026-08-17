@@ -59,7 +59,7 @@ const PhaseTwo = () => {
         (correctName) => normalizeArabic(correctName) === normalizedInput,
       );
 
-      const questionIndex = 6 + Object.keys(ORGANS_CONFIG).indexOf(id);
+      const questionIndex = 7 + Object.keys(ORGANS_CONFIG).indexOf(id);
 
       if (isMatch) {
         try {

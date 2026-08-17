@@ -228,7 +228,14 @@ Object.assign(window.GameSCORMWrapper.prototype, {
             // مزامنة الأسئلة وإتمام الحفظ
             this.syncInteractionsToLMS();
             this.callCommit(); // Session Management Rule: Commit immediately after update
-            console.log(`Score: ${trueMaxScore}% | Completion: ${this.gameData.completion_status} | Success: ${this.gameData.success_status}`);
+            
+            const allQuestions = Object.values(this.gameData.questions || {});
+            const totalQuestions = this.gameData.Result?.totalQuestions || 0;
+            const answeredCount = allQuestions.filter(q => q.result !== null).length;
+            
+            if (totalQuestions > 0 && answeredCount >= totalQuestions) {
+                console.log(`Score: ${trueMaxScore}% | Completion: ${this.gameData.completion_status} | Success: ${this.gameData.success_status}`);
+            }
         } catch (e) { console.error(e); }
     },
 
