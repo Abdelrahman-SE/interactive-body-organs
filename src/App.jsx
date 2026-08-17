@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GameProvider, useGame } from './context/GameContext';
 import StartScreen from './components/StartScreen';
 import HintModal from './components/HintModal';
@@ -26,6 +26,26 @@ function GameRunner() {
 }
 
 function App() {
+  useEffect(() => {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      // @ts-ignore
+      if (window.gameSCORM) {
+        clearInterval(interval);
+        try {
+          // @ts-ignore
+          window.gameSCORM.setupCourse(true, 0, 0);
+          // @ts-ignore
+          window.gameSCORM.initializeQuestions(12); // Adjust number based on total questions
+        } catch {}
+      } else if (attempts > 20) {
+        clearInterval(interval); // Timeout after 2 seconds
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <GameProvider>
       <div className="game-wrapper">

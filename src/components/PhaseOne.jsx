@@ -288,6 +288,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
 
     if (isCorrectOrgan && droppedZoneId === organConfig.id) {
       playSound("success");
+      try { if (window.gameSCORM) window.gameSCORM.endQuestion(true); } catch {}
       dispatch({ type: "PLACE_ORGAN", payload: { id: organConfig.id } });
       console.log(
         `تم وضع ${organConfig.id} بنجاح! إجمالي المحاولات (شاملة هذه المحاولة):`,
@@ -295,6 +296,7 @@ const DraggableOrgan = ({ organConfig, containerRef, currentTargetId }) => {
       );
     } else if (droppedZoneId !== null) {
       playSound("error");
+      try { if (window.gameSCORM) window.gameSCORM.endQuestion(false); } catch {}
 
       dispatch({
         type: "RECORD_PLACE_ERROR",
@@ -476,6 +478,8 @@ const PhaseOne = () => {
   const currentTargetId = orderedOrgans.find(
     (id) => !state.organs[id].isPlaced,
   );
+  const currentQuestionIndex = orderedOrgans.indexOf(currentTargetId);
+  
   const currentQuestion = currentTargetId
     ? textData.phase1Questions.find((q) => q.id === currentTargetId)?.text
     : "";
@@ -483,8 +487,11 @@ const PhaseOne = () => {
   useEffect(() => {
     if (currentTargetId) {
       playSound(`q_${currentTargetId}`);
+      try {
+        if (window.gameSCORM) window.gameSCORM.startQuestion("interactions" + currentQuestionIndex);
+      } catch {}
     }
-  }, [currentTargetId]);
+  }, [currentTargetId, currentQuestionIndex]);
 
   return (
     <div className="phase-container" ref={containerRef}>

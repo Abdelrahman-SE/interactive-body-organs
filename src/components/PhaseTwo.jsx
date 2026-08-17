@@ -59,11 +59,25 @@ const PhaseTwo = () => {
         (correctName) => normalizeArabic(correctName) === normalizedInput,
       );
 
+      const questionIndex = 6 + Object.keys(ORGANS_CONFIG).indexOf(id);
+
       if (isMatch) {
+        try {
+          if (window.gameSCORM) {
+            window.gameSCORM.startQuestion("interactions" + questionIndex);
+            window.gameSCORM.endQuestion(true);
+          }
+        } catch {}
         dispatch({ type: "NAME_ORGAN", payload: { id } });
       } else {
         allCorrect = false;
         anyError = true;
+        try {
+          if (window.gameSCORM) {
+            window.gameSCORM.startQuestion("interactions" + questionIndex);
+            window.gameSCORM.endQuestion(false);
+          }
+        } catch {}
         dispatch({ type: "RECORD_NAME_ERROR", payload: { id } });
       }
     });
