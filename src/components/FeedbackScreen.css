@@ -106,10 +106,9 @@
 
 .feedback-score-value {
   color: white;
-  font-size: 2.5cqw;
-  font-weight: bold;
-  z-index: 10;
-  font-family: "Cairo", sans-serif;
+  text-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.5);
+  margin-top: 1vw;
+  font-family: "Vazirmatn", sans-serif;
   direction: ltr;
 }
 

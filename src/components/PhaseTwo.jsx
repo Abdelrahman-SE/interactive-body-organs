@@ -197,7 +197,7 @@ const PhaseTwo = () => {
                 fontWeight: "normal",
                 color: isError ? "#ef4444" : isSuccess ? "#10b981" : "#000",
                 outline: "none",
-                fontFamily: "Cairo, sans-serif",
+                fontFamily: "Vazirmatn, sans-serif",
               }}
             />
           </div>

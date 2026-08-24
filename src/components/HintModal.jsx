@@ -69,18 +69,26 @@ const HintModal = () => {
 
       <div className="hint-modal-content-wrapper">
         <div ref={modalRef} className="hint-modal-box">
-          {/* Close Button matching the new design */}
-          <div className="hint-modal-close-btn" onClick={handleClose}>
-            <div className="hint-modal-close-icon">
-              <div className="hint-modal-close-line"></div>
-              <div className="hint-modal-close-line"></div>
-            </div>
-          </div>
+          <img
+            src="./assets/project_photos/hint_background.svg"
+            alt="Hint Background"
+            className="hint-bg-image"
+            draggable="false"
+          />
+          <img
+            src="./assets/project_photos/close_btn.svg"
+            alt="Close"
+            className="hint-modal-close-btn"
+            onClick={handleClose}
+            draggable="false"
+          />
 
-          <p
-            className="hint-modal-text"
-            dangerouslySetInnerHTML={{ __html: getHintText() }}
-          ></p>
+          <div className="hint-text-container">
+            <p
+              className="hint-modal-text"
+              dangerouslySetInnerHTML={{ __html: getHintText() }}
+            ></p>
+          </div>
         </div>
       </div>
     </div>
