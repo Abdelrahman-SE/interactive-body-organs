@@ -50,6 +50,12 @@ function App() {
     <GameProvider>
       <div className="game-wrapper">
         <div className="game-container">
+          <img 
+            src="./assets/project_photos/logo.svg" 
+            alt="Ministry Logo" 
+            className="ministry-logo" 
+            draggable="false" 
+          />
           <GameRunner />
         </div>
       </div>

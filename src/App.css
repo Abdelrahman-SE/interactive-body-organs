@@ -19,3 +19,12 @@
   background-color: transparent;
   container-type: inline-size;
 }
+
+.ministry-logo {
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  width: 12%; /* Adjust this if the logo is too big/small */
+  z-index: 10000;
+  pointer-events: none;
+}

@@ -6,12 +6,12 @@ import CheckBtnDimmedSvg from "../../public/assets/project_photos/check_btn_dimm
 import "./PhaseTwo.css";
 
 const ORGANS_CONFIG = {
-  brain: { id: "brain", top: "28%", left: "25.8%" },
-  heart: { id: "heart", top: "54%", left: "26%" },
-  kidneys: { id: "kidneys", top: "79.5%", left: "26%" },
-  lungs: { id: "lungs", top: "28%", left: "74%" },
-  stomach: { id: "stomach", top: "54%", left: "74%" },
-  intestine: { id: "intestine", top: "79.5%", left: "74%" },
+  brain: { id: "brain", top: "31%", left: "24.8%" },
+  heart: { id: "heart", top: "56%", left: "24.5%" },
+  kidneys: { id: "kidneys", top: "81%", left: "24.5%" },
+  lungs: { id: "lungs", top: "32%", left: "75.5%" },
+  stomach: { id: "stomach", top: "57%", left: "75.5%" },
+  intestine: { id: "intestine", top: "81%", left: "75.5%" },
 };
 
 const normalizeArabic = (text) => {
@@ -39,33 +39,42 @@ const PhaseTwo = () => {
     setInputs((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     let allCorrect = true;
     let anyError = false;
 
-    Object.keys(ORGANS_CONFIG).forEach((id) => {
+    const ids = Object.keys(ORGANS_CONFIG);
+
+    for (const id of ids) {
       const organ = state.organs[id];
-      if (organ.isNamed) return; // already solved
+      if (organ.isNamed) continue; // already solved
 
       const val = inputs[id];
-      const normalizedInput = normalizeArabic(val);
-
-      if (val.trim() === "") {
+      if (!val || val.trim() === "") {
         allCorrect = false;
-        return; // Skip empty
+        continue; // Skip empty
       }
 
+      const normalizedInput = normalizeArabic(val);
       const isMatch = organ.names.some(
         (correctName) => normalizeArabic(correctName) === normalizedInput,
       );
 
-      const questionIndex = 7 + Object.keys(ORGANS_CONFIG).indexOf(id);
+      const questionIndex = 7 + ids.indexOf(id);
+
+      try {
+        if (window.gameSCORM) {
+          window.gameSCORM.startQuestion("interactions" + questionIndex);
+        }
+      } catch {}
+
+      // Add a small delay so SCORM API can process them one by one
+      await new Promise((resolve) => setTimeout(resolve, 150));
 
       if (isMatch) {
         try {
           if (window.gameSCORM) {
-            window.gameSCORM.startQuestion("interactions" + questionIndex);
-            window.gameSCORM.endQuestion(true);
+            window.gameSCORM.endQuestion(true, val, organ.names[0]);
           }
         } catch {}
         dispatch({ type: "NAME_ORGAN", payload: { id } });
@@ -74,16 +83,17 @@ const PhaseTwo = () => {
         anyError = true;
         try {
           if (window.gameSCORM) {
-            window.gameSCORM.startQuestion("interactions" + questionIndex);
-            window.gameSCORM.endQuestion(false);
+            window.gameSCORM.endQuestion(false, val, organ.names[0]);
           }
         } catch {}
         dispatch({ type: "RECORD_NAME_ERROR", payload: { id } });
       }
-    });
+
+      // Short delay before the next input
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    }
 
     if (allCorrect) {
-      // GameContext handles moving to feedback if all are named, but we still play sound
       playSound("success");
     } else if (anyError) {
       playSound("error");
