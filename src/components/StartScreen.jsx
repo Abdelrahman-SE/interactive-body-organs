@@ -33,6 +33,12 @@ const StartScreen = () => {
         className="bg-image-contain"
         style={{ pointerEvents: "none", userSelect: "none", direction: "ltr" }}
       />
+      <img
+        src="./assets/project_photos/logo.svg"
+        alt="Ministry Logo"
+        className="ministry-logo"
+        draggable="false"
+      />
 
       {/* Start Button */}
       <img
