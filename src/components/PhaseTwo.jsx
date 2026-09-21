@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import { playSound } from "../utils/audio";
-import CheckBtnSvg from "../../public/assets/project_photos/check_btn.svg?react";
-import CheckBtnDimmedSvg from "../../public/assets/project_photos/check_btn_dimmed.svg?react";
+import CheckBtnSvg from "../assets/project_photos/check_btn.svg?react";
+import CheckBtnDimmedSvg from "../assets/project_photos/check_btn_dimmed.svg?react";
 import "./PhaseTwo.css";
 
 const ORGANS_CONFIG = {

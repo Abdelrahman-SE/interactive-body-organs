@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import anime from "animejs";
 import { useGame } from "../context/GameContext";
 import { playSound } from "../utils/audio";
-import StartScreenSvg from "../../public/assets/project_photos/start_screen.svg?react";
+import StartScreenSvg from "../assets/project_photos/start_screen.svg?react";
 import "./StartScreen.css";
 
 const StartScreen = () => {

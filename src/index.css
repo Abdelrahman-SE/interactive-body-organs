@@ -1,5 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap");
+@font-face {
+  font-family: "DG";
+  src: url("./assets/fonts/DG_3asomy_Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("./assets/fonts/Vazirmatn-Regular ara.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("./assets/fonts/Vazirmatn-SemiBold ara.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("./assets/fonts/Vazirmatn-bold ara.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
 :root {
   --primary-color: #6366f1;
   --primary-hover: #4f46e5;
@@ -17,7 +42,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Lexend", sans-serif;
 }
 
 body {
