@@ -28,6 +28,7 @@ const PhaseTwo = () => {
     stomach: "",
     intestine: "",
   });
+  const [isChecked, setIsChecked] = useState(false);
 
   const isAllFilled = Object.keys(ORGANS_CONFIG).every((id) => {
     const organ = state.organs[id];
@@ -135,9 +136,10 @@ const PhaseTwo = () => {
       </div>
 
       {/* Verify Button */}
-      {isAllFilled ? (
+      {isAllFilled && !isChecked ? (
         <CheckBtnSvg
           onClick={() => {
+            setIsChecked(true);
             playSound("click");
             handleVerify();
           }}
