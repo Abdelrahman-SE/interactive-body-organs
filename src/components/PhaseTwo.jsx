@@ -126,7 +126,7 @@ const PhaseTwo = () => {
         setTimeout(() => {
           dispatch({ type: "ADVANCE_FEEDBACK" });
         }, 3000);
-      }, 800);
+      }, 2000);
     }
   };
 
