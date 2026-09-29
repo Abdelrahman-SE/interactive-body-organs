@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import { playSound } from "../utils/audio";
-import CheckBtnSvg from "../assets/project_photos/check_btn.svg?react";
-import CheckBtnDimmedSvg from "../assets/project_photos/check_btn_dimmed.svg?react";
+import checkBtnPng from "../assets/project_photos/check_btn.png";
+import checkBtnDimmedPng from "../assets/project_photos/check_btn_dimmed.png";
 import "./PhaseTwo.css";
 
 const ORGANS_CONFIG = {
@@ -142,23 +142,28 @@ const PhaseTwo = () => {
 
       {/* Verify Button */}
       {isAllFilled && !isChecked ? (
-        <CheckBtnSvg
+        <img
+          src={checkBtnPng}
+          alt="تأكيد"
           onClick={() => {
             setIsChecked(true);
             playSound("click");
             handleVerify();
           }}
           className="nav-btn verify-btn active"
-          style={{ userSelect: "none", cursor: "pointer", direction: "ltr" }}
+          style={{ userSelect: "none", cursor: "pointer" }}
+          draggable="false"
         />
       ) : (
-        <CheckBtnDimmedSvg
+        <img
+          src={checkBtnDimmedPng}
+          alt="تأكيد"
           className="nav-btn verify-btn dimmed"
           style={{
             userSelect: "none",
             pointerEvents: "none",
-            direction: "ltr",
           }}
+          draggable="false"
         />
       )}
 
