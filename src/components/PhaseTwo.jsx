@@ -204,12 +204,27 @@ const PhaseTwo = () => {
                 fontWeight: "normal",
                 color: isError ? "#ef4444" : isSuccess ? "#10b981" : "#000",
                 outline: "none",
-                fontFamily: "Vazirmatn, sans-serif",
+                fontFamily: '"Lotus Light", sans-serif',
               }}
             />
           </div>
         );
       })}
+
+      {/* Bottom Logo */}
+      <img
+        src="./assets/project_photos/logo_bottom.png"
+        alt="Ministry Logo Bottom"
+        style={{
+          position: "absolute",
+          bottom: "1.5%",
+          right: "1%",
+          width: "12%",
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+        draggable="false"
+      />
     </div>
   );
 };

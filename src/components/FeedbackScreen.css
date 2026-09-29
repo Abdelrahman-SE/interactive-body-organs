@@ -6,6 +6,7 @@
   width: 65%;
   height: 65%;
   opacity: 0;
+  font-family: "GE_SS_Two_Light", sans-serif;
 }
 
 .feedback-border {
@@ -75,7 +76,7 @@
 .feedback-title {
   color: #395b90;
   font-size: 4cqw;
-  font-family: "Vazirmatn", sans-serif;
+  font-family: "GE_SS_Two_Light", sans-serif;
 }
 
 .feedback-text {
@@ -83,7 +84,7 @@
   font-size: 2.5cqw;
   margin: 0;
   font-weight: bold;
-  font-family: "Vazirmatn", sans-serif;
+  font-family: "GE_SS_Two_Light", sans-serif;
 }
 
 .feedback-score-pill {
@@ -110,7 +111,7 @@
   color: white;
   text-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.5);
   margin-top: 1vw;
-  font-family: "Vazirmatn", sans-serif;
+  font-family: "Vazirmatn-SemiBold ara", sans-serif;
   direction: ltr;
   position: relative;
   z-index: 1;

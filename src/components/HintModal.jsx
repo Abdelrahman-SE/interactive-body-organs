@@ -84,7 +84,10 @@ const HintModal = () => {
             alt="Close"
             className="hint-modal-close-btn"
             onClick={handleClose}
-            style={{ pointerEvents: isClosing ? "none" : "auto", cursor: isClosing ? "default" : "pointer" }}
+            style={{
+              pointerEvents: isClosing ? "none" : "auto",
+              cursor: isClosing ? "default" : "pointer",
+            }}
             draggable="false"
           />
 
@@ -96,6 +99,19 @@ const HintModal = () => {
           </div>
         </div>
       </div>
+      <img
+        src="./assets/project_photos/logo_bottom.png"
+        alt="Ministry Logo Bottom"
+        style={{
+          position: "absolute",
+          bottom: "1.5%",
+          right: "1%",
+          width: "12%",
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+        draggable="false"
+      />
     </div>
   );
 };

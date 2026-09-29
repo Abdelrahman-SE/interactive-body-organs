@@ -506,7 +506,7 @@ const PhaseOne = () => {
     <div className="phase-container" ref={containerRef}>
       {currentQuestion && (
         <div key={currentTargetId} className="phase1-question-container">
-          <p className="phase1-question-text">{currentQuestion}</p>
+          <p lang="ar" dir="rtl" className="phase1-question-text arabic-text">{currentQuestion}</p>
         </div>
       )}
 
@@ -599,6 +599,21 @@ const PhaseOne = () => {
           currentTargetId={currentTargetId}
         />
       ))}
+
+      {/* Bottom Logo */}
+      <img
+        src="./assets/project_photos/logo_bottom.png"
+        alt="Ministry Logo Bottom"
+        style={{
+          position: "absolute",
+          bottom: "1.5%",
+          right: "1%",
+          width: "12%",
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+        draggable="false"
+      />
     </div>
   );
 };

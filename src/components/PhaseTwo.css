@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  font-family: "Vazirmatn", sans-serif;
+  font-family: "Lotus", "lotus", sans-serif;
 }
 
 .top-left-buttons {
@@ -38,6 +38,7 @@
   background: transparent;
   position: relative;
   z-index: 2;
+  font-family: "Lotus Light", sans-serif;
 }
 
 .input-bg {
