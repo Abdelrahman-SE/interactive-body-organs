@@ -75,6 +75,7 @@
 .feedback-title {
   color: #395b90;
   font-size: 4cqw;
+  font-family: "Vazirmatn", sans-serif;
 }
 
 .feedback-text {
@@ -82,6 +83,7 @@
   font-size: 2.5cqw;
   margin: 0;
   font-weight: bold;
+  font-family: "Vazirmatn", sans-serif;
 }
 
 .feedback-score-pill {

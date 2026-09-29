@@ -128,8 +128,13 @@ const PhaseTwo = () => {
           alt="Hint"
           className="nav-btn"
           onClick={() => {
+            if (isChecked) return;
             playSound("click");
             dispatch({ type: "TOGGLE_HINT" });
+          }}
+          style={{
+            pointerEvents: isChecked ? "none" : "auto",
+            opacity: isChecked ? 0.5 : 1,
           }}
           draggable="false"
         />
@@ -190,7 +195,7 @@ const PhaseTwo = () => {
               type="text"
               value={inputs[config.id]}
               onChange={(e) => handleInputChange(config.id, e.target.value)}
-              disabled={isSuccess}
+              disabled={isSuccess || isChecked}
               className="input-field-bubble"
               style={{
                 border: "none",
@@ -199,7 +204,7 @@ const PhaseTwo = () => {
                 fontWeight: "normal",
                 color: isError ? "#ef4444" : isSuccess ? "#10b981" : "#000",
                 outline: "none",
-                fontFamily: "Lexend, sans-serif",
+                fontFamily: "Vazirmatn, sans-serif",
               }}
             />
           </div>

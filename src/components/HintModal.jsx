@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGame } from "../context/GameContext";
 import { playSound, stopAllSounds } from "../utils/audio";
 import anime from "animejs";
@@ -34,7 +34,11 @@ const HintModal = () => {
     });
   }, []);
 
+  const [isClosing, setIsClosing] = useState(false);
+
   const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
     stopAllSounds();
     playSound("click");
     anime({
@@ -80,6 +84,7 @@ const HintModal = () => {
             alt="Close"
             className="hint-modal-close-btn"
             onClick={handleClose}
+            style={{ pointerEvents: isClosing ? "none" : "auto", cursor: isClosing ? "default" : "pointer" }}
             draggable="false"
           />
 
