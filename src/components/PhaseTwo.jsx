@@ -15,7 +15,11 @@ const ORGANS_CONFIG = {
 };
 
 const normalizeArabic = (text) => {
-  return text.trim().replace(/[أإآ]/g, "ا").replace(/ة/g, "ه");
+  return text
+    .trim()
+    .replace(/[\u064B-\u065F\u0670]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه");
 };
 
 const PhaseTwo = () => {
@@ -29,6 +33,7 @@ const PhaseTwo = () => {
     intestine: "",
   });
   const [isChecked, setIsChecked] = useState(false);
+  const [wrongHighlightIds, setWrongHighlightIds] = useState([]);
 
   const isAllFilled = Object.keys(ORGANS_CONFIG).every((id) => {
     const organ = state.organs[id];
@@ -41,8 +46,10 @@ const PhaseTwo = () => {
   };
 
   const handleVerify = async () => {
+    setIsChecked(true);
     let allCorrect = true;
     let anyError = false;
+    const wrongIds = [];
 
     const ids = Object.keys(ORGANS_CONFIG);
 
@@ -53,7 +60,7 @@ const PhaseTwo = () => {
       const val = inputs[id];
       if (!val || val.trim() === "") {
         allCorrect = false;
-        continue; // Skip empty
+        continue;
       }
 
       const normalizedInput = normalizeArabic(val);
@@ -69,7 +76,7 @@ const PhaseTwo = () => {
         }
       } catch {}
 
-      // Add a small delay so SCORM API can process them one by one
+      // Add delay so SCORM API can process and visual step is clear for each answer
       await new Promise((resolve) => setTimeout(resolve, 150));
 
       if (isMatch) {
@@ -82,27 +89,45 @@ const PhaseTwo = () => {
       } else {
         allCorrect = false;
         anyError = true;
+        wrongIds.push(id);
         try {
           if (window.gameSCORM) {
             window.gameSCORM.endQuestion(false, val, organ.names[0]);
           }
         } catch {}
         dispatch({ type: "RECORD_NAME_ERROR", payload: { id } });
+        setWrongHighlightIds((prev) => [...prev, id]);
       }
 
-      // Short delay before the next input
+      // Short delay before moving to the next input
       await new Promise((resolve) => setTimeout(resolve, 150));
     }
 
     if (allCorrect) {
       playSound("success");
+      setTimeout(() => {
+        dispatch({ type: "ADVANCE_FEEDBACK" });
+      }, 1500);
     } else if (anyError) {
       playSound("error");
-    }
 
-    setTimeout(() => {
-      dispatch({ type: "ADVANCE_FEEDBACK" });
-    }, 1500);
+      // Show brief error highlight, then revert to default state and write the correct answer
+      setTimeout(() => {
+        setWrongHighlightIds([]);
+        setInputs((prev) => {
+          const updated = { ...prev };
+          wrongIds.forEach((wId) => {
+            updated[wId] = state.organs[wId].names[0];
+          });
+          return updated;
+        });
+
+        // Allow learner to see the corrected answers before moving to feedback
+        setTimeout(() => {
+          dispatch({ type: "ADVANCE_FEEDBACK" });
+        }, 3000);
+      }, 800);
+    }
   };
 
   return (
@@ -116,13 +141,6 @@ const PhaseTwo = () => {
 
       {/* Top Left Buttons */}
       <div className="top-left-buttons">
-        {/* <img
-          src="./assets/project_photos/home_btn.svg"
-          alt="Home"
-          className="nav-btn"
-          onClick={() => dispatch({ type: "RESTART_GAME" })}
-          draggable="false"
-        /> */}
         <img
           src="./assets/project_photos/hint_btn.svg"
           alt="Hint"
@@ -146,7 +164,6 @@ const PhaseTwo = () => {
           src={checkBtnPng}
           alt="تأكيد"
           onClick={() => {
-            setIsChecked(true);
             playSound("click");
             handleVerify();
           }}
@@ -179,7 +196,7 @@ const PhaseTwo = () => {
       {Object.values(ORGANS_CONFIG).map((config) => {
         const organ = state.organs[config.id];
         const isSuccess = organ.isNamed;
-        const isError = !isSuccess && organ.namedErrors > 0;
+        const isError = wrongHighlightIds.includes(config.id);
 
         return (
           <div
@@ -191,7 +208,13 @@ const PhaseTwo = () => {
             }}
           >
             <img
-              src={`./assets/project_photos/${isSuccess ? "input_correct_highlight.svg" : isError ? "input_wrong_highlight.svg" : "input_section.svg"}`}
+              src={`./assets/project_photos/${
+                isSuccess
+                  ? "input_correct_highlight.svg"
+                  : isError
+                    ? "input_wrong_highlight.svg"
+                    : "input_section.svg"
+              }`}
               alt="Input background"
               className="input-bg"
               draggable="false"
